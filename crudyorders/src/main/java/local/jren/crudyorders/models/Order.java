@@ -82,10 +82,12 @@ public class Order {
         return payments;
     }
 
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
-    }
+    public void setPayments(List<Payment> payments) { this.payments = payments; }
 
+    public void addPayments(Payment payment) {
+        payment.getOrders().add(this);
+        payments.add(payment);
+    }
     @Override
     public String toString() {
         return "Order{" +
