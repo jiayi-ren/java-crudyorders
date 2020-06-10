@@ -20,9 +20,17 @@ public class Customer {
     private String custcountry;
     private String workingarea;
     private String grade;
+    @Transient
+    public boolean hasopeningamt = false;
     private double openingamt;
+    @Transient
+    public boolean hasreceiveamt = false;
     private double receiveamt;
+    @Transient
+    public boolean haspaymentamt = false;
     private double paymentamt;
+    @Transient
+    public boolean hasoutstandingamt = false;
     private double outstandingamt;
     private String phone;
 
@@ -105,6 +113,7 @@ public class Customer {
     }
 
     public void setOpeningamt(double openingamt) {
+        this.hasopeningamt = true;
         this.openingamt = openingamt;
     }
 
@@ -113,6 +122,7 @@ public class Customer {
     }
 
     public void setOutstandingamt(double outstandingamt) {
+        this.hasoutstandingamt = true;
         this.outstandingamt = outstandingamt;
     }
 
@@ -121,6 +131,7 @@ public class Customer {
     }
 
     public void setPaymentamt(double paymentamt) {
+        this.haspaymentamt = true;
         this.paymentamt = paymentamt;
     }
 
@@ -137,6 +148,7 @@ public class Customer {
     }
 
     public void setReceiveamt(double receiveamt) {
+        this.hasreceiveamt = true;
         this.receiveamt = receiveamt;
     }
 

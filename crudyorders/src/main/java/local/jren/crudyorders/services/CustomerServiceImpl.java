@@ -86,8 +86,73 @@ public class CustomerServiceImpl implements CustomerService{
         return customerRepository.save(newCustomer);
     }
 
+    @Transactional
     @Override
     public Customer update(Customer customer, long id) {
-        return null;
+        Customer currentCustomer = customerRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Customer "+id+" Not Found"));
+
+        if(customer.getCustcode() != 0) {
+            customerRepository.findById(customer.getCustcode()).orElseThrow(()-> new EntityNotFoundException("Customer "+customer.getCustcode()+" Not Found"));
+            currentCustomer.setCustcode(customer.getCustcode());
+        }
+
+        if(customer.getCustname() != null) {
+            currentCustomer.setCustname(customer.getCustname());
+        }
+
+        if(customer.getCustcity() != null) {
+            currentCustomer.setCustcity(customer.getCustcity());
+        }
+
+        if(customer.getCustcountry() != null) {
+            currentCustomer.setCustcountry(customer.getCustcountry());
+        }
+
+        if(customer.getWorkingarea() != null) {
+            currentCustomer.setWorkingarea(customer.getWorkingarea());
+        }
+
+        if(customer.getGrade() != null) {
+            currentCustomer.setGrade(customer.getGrade());
+        }
+
+        if(customer.getPhone() != null) {
+            currentCustomer.setPhone(customer.getPhone());
+        }
+
+        if(customer.hasopeningamt) {
+            currentCustomer.setOpeningamt(customer.getOpeningamt());
+        }
+
+        if(customer.hasreceiveamt) {
+            currentCustomer.setReceiveamt(customer.getReceiveamt());
+        }
+
+        if(customer.haspaymentamt) {
+            currentCustomer.setPaymentamt(customer.getPaymentamt());
+        }
+
+        if(customer.hasoutstandingamt) {
+            currentCustomer.setOutstandingamt(customer.getOutstandingamt());
+        }
+
+        if(customer.getAgent() != null) {
+            currentCustomer.setAgent(customer.getAgent());
+        }
+
+        if(customer.getOrders().size() > 0) {
+            currentCustomer.getOrders().clear();
+            for (Order order: customer.getOrders()) {
+                List<Payment> paymentList = new ArrayList<>();
+                for (Payment payment: order.getPayments()){
+                    Payment newPayment = paymentRepository.findById(payment.getPaymentid()).orElseThrow(()-> new EntityNotFoundException("Payment "+payment.getPaymentid()+" Not Found"));
+                    paymentList.add(newPayment);
+                }
+                Order newOrder = new Order(order.getAdvanceamount(),order.getOrdamount(), order.getOrderdescription(), currentCustomer, paymentList);
+                currentCustomer.getOrders().add(newOrder);
+            }
+        }
+
+        return customerRepository.save(currentCustomer);
     }
 }

@@ -69,4 +69,11 @@ public class CustomerController {
         customerService.save(updateCustomer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // PATCH http://localhost:2019/customers/customer/19
+    @PatchMapping(value = "/customer/{custcode}", consumes = {"application/json"})
+    public ResponseEntity<?> updateCustomer(@RequestBody Customer updateCustomer, @PathVariable long custcode) {
+        customerService.update(updateCustomer, custcode);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
