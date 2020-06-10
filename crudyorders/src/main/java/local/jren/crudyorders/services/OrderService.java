@@ -7,4 +7,6 @@ import java.util.List;
 public interface OrderService {
     Order findOrderById(long id);
     List<Order> findOrdersWithAdvanceAmount(double advance);
+    void delete(long id);
+    Order save(Order order);
 }
