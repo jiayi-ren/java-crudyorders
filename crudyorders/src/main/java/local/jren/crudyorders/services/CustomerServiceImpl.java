@@ -4,6 +4,7 @@ import local.jren.crudyorders.models.Customer;
 import local.jren.crudyorders.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -29,5 +30,25 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public List<Customer> findByNameLike(String thename) {
         return customerRepository.findByCustnameContainingIgnoringCase(thename);
+    }
+
+    @Transactional
+    @Override
+    public void delete(long id) {
+        if (customerRepository.findById(id).isPresent()) {
+            customerRepository.deleteById(id);
+        } else {
+            throw new EntityNotFoundException("Customer "+id+" Not Found");
+        }
+    }
+
+    @Override
+    public Customer save(Customer customer) {
+        return null;
+    }
+
+    @Override
+    public Customer update(Customer customer, long id) {
+        return null;
     }
 }
