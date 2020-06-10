@@ -30,10 +30,12 @@ public class Order {
     public Order() {
     }
 
-    public Order(double advanceamount, double ordamount, String orderdescription) {
+    public Order(double advanceamount, double ordamount, String orderdescription, Customer customer, List<Payment> payments) {
         this.advanceamount = advanceamount;
         this.ordamount = ordamount;
         this.orderdescription = orderdescription;
+        this.customer = customer;
+        this.payments = payments;
     }
 
     public long getOrdnum() {
