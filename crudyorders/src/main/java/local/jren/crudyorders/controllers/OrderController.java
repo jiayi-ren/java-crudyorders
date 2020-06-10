@@ -2,6 +2,7 @@ package local.jren.crudyorders.controllers;
 
 import local.jren.crudyorders.models.Order;
 import local.jren.crudyorders.services.OrderService;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -52,5 +53,13 @@ public class OrderController {
         responseHeaders.setLocation(newCustomerURI);
 
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    }
+
+    // PUT http://localhost:2019/orders/order/10
+    @PutMapping(value = "/order/{ordnum}", consumes = {"application/json"})
+    public ResponseEntity<?> updateFullOrder(@RequestBody Order updateOrder, @PathVariable long ordnum) {
+        updateOrder.setOrdnum(ordnum);
+        orderService.save(updateOrder);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
