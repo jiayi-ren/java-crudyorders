@@ -30,6 +30,13 @@ public class Order {
     public Order() {
     }
 
+    public Order(double ordamount, double advanceamount, Customer customer, String orderdescription) {
+        this.advanceamount = advanceamount;
+        this.ordamount = ordamount;
+        this.orderdescription = orderdescription;
+        this.customer = customer;
+    }
+
     public Order(double advanceamount, double ordamount, String orderdescription, Customer customer, List<Payment> payments) {
         this.advanceamount = advanceamount;
         this.ordamount = ordamount;

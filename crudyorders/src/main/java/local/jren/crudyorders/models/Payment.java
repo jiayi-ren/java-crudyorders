@@ -23,6 +23,10 @@ public class Payment {
     public Payment() {
     }
 
+    public Payment(String type) {
+        this.type = type;
+    }
+
     public Payment(String type, List<Order> orders) {
         this.type = type;
         this.orders = orders;
